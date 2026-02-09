@@ -3,7 +3,7 @@ import 'package:life_auctor/utils/app_constants.dart';
 import 'package:provider/provider.dart';
 import 'package:life_auctor/providers/history_provider.dart';
 import 'package:life_auctor/models/history_event.dart';
-import 'package:life_auctor/widgets/nav_bar.dart/app_bar.dart';
+import 'package:life_auctor/widgets/nav_bar/app_bar.dart';
 
 // Helper function to group events by date
 Map<String, List<HistoryEvent>> _groupEventsByDate(List<HistoryEvent> events) {
@@ -24,11 +24,23 @@ class _EventStyleConfig {
   Color get backgroundColor => iconColor.withValues(alpha: 0.1);
 
   static const _configs = {
-    HistoryEventType.addedItem: _EventStyleConfig(Icons.add_circle_outline, Colors.green),
-    HistoryEventType.scannedBarcode: _EventStyleConfig(Icons.qr_code_scanner, Colors.blue),
+    HistoryEventType.addedItem: _EventStyleConfig(
+      Icons.add_circle_outline,
+      Colors.green,
+    ),
+    HistoryEventType.scannedBarcode: _EventStyleConfig(
+      Icons.qr_code_scanner,
+      Colors.blue,
+    ),
     HistoryEventType.itemExpired: _EventStyleConfig(Icons.cancel, Colors.red),
-    HistoryEventType.createdList: _EventStyleConfig(Icons.list_alt, Colors.purple),
-    HistoryEventType.outOfStock: _EventStyleConfig(Icons.inventory_2_outlined, Colors.orange),
+    HistoryEventType.createdList: _EventStyleConfig(
+      Icons.list_alt,
+      Colors.purple,
+    ),
+    HistoryEventType.outOfStock: _EventStyleConfig(
+      Icons.inventory_2_outlined,
+      Colors.orange,
+    ),
   };
 
   static _EventStyleConfig get(HistoryEventType type) => _configs[type]!;
@@ -55,44 +67,45 @@ class _HistoryTheme {
   double get iconSize => width * 0.08;
 
   // Colors
-  Color get backgroundColor => isDark ? const Color(0xFF121212) : Colors.grey[100]!;
+  Color get backgroundColor =>
+      isDark ? const Color(0xFF121212) : Colors.grey[100]!;
   Color get cardColor => isDark ? Colors.grey[850]! : Colors.white;
   Color get textColor => isDark ? Colors.white : Colors.black87;
   Color get subtitleColor => isDark ? Colors.grey[400]! : Colors.grey[600]!;
 
   // Text Styles
   TextStyle get titleStyle => TextStyle(
-        fontSize: titleSize,
-        fontWeight: FontWeight.bold,
-        color: textColor,
-      );
+    fontSize: titleSize,
+    fontWeight: FontWeight.bold,
+    color: textColor,
+  );
 
   TextStyle get groupTitleStyle => TextStyle(
-        fontSize: groupTitleSize,
-        fontWeight: FontWeight.bold,
-        color: textColor,
-      );
+    fontSize: groupTitleSize,
+    fontWeight: FontWeight.bold,
+    color: textColor,
+  );
 
   TextStyle get eventTitleStyle => TextStyle(
-        fontSize: eventTitleSize,
-        fontWeight: FontWeight.bold,
-        color: textColor,
-      );
+    fontSize: eventTitleSize,
+    fontWeight: FontWeight.bold,
+    color: textColor,
+  );
 
   TextStyle get eventSubtitleStyle => TextStyle(
-        fontSize: eventSubtitleSize,
-        color: subtitleColor,
-      );
+    fontSize: eventSubtitleSize,
+    color: subtitleColor,
+  );
 
   TextStyle get eventTimeStyle => TextStyle(
-        fontSize: eventTimeSize,
-        color: Colors.grey,
-      );
+    fontSize: eventTimeSize,
+    color: Colors.grey,
+  );
 
   TextStyle get emptyTextStyle => TextStyle(
-        fontSize: eventTitleSize,
-        color: isDark ? Colors.grey : Colors.grey[600],
-      );
+    fontSize: eventTitleSize,
+    color: isDark ? Colors.grey : Colors.grey[600],
+  );
 }
 
 class HistoryScreen extends StatefulWidget {
@@ -140,7 +153,8 @@ class _HistoryScreenState extends State<HistoryScreen> {
                   _FilterButtons(
                     filters: _filters,
                     selectedFilter: _selectedFilter,
-                    onFilterSelected: (filter) => setState(() => _selectedFilter = filter),
+                    onFilterSelected: (filter) =>
+                        setState(() => _selectedFilter = filter),
                     theme: theme,
                   ),
                   SizedBox(height: theme.padding),
@@ -158,7 +172,9 @@ class _HistoryScreenState extends State<HistoryScreen> {
 
   Widget _buildContent(HistoryProvider provider, _HistoryTheme theme) {
     if (provider.isLoading) {
-      return const Center(child: CircularProgressIndicator(color: AppConstants.primaryGreen));
+      return const Center(
+        child: CircularProgressIndicator(color: AppConstants.primaryGreen),
+      );
     }
 
     if (provider.events.isEmpty) {
@@ -193,15 +209,25 @@ class _SearchBar extends StatelessWidget {
           SizedBox(width: theme.padding * 0.5),
           Expanded(
             child: TextField(
-              style: TextStyle(fontSize: theme.searchFontSize, color: theme.textColor),
+              style: TextStyle(
+                fontSize: theme.searchFontSize,
+                color: theme.textColor,
+              ),
               decoration: InputDecoration(
                 hintText: 'Search history...',
-                hintStyle: TextStyle(fontSize: theme.searchFontSize, color: Colors.grey),
+                hintStyle: TextStyle(
+                  fontSize: theme.searchFontSize,
+                  color: Colors.grey,
+                ),
                 border: InputBorder.none,
               ),
             ),
           ),
-          Icon(Icons.filter_list, color: Colors.grey, size: theme.searchIconSize),
+          Icon(
+            Icons.filter_list,
+            color: Colors.grey,
+            size: theme.searchIconSize,
+          ),
         ],
       ),
     );
@@ -286,7 +312,9 @@ class _EventsList extends StatelessWidget {
               ),
               child: Text(group, style: theme.groupTitleStyle),
             ),
-            ...groupEvents.map((event) => _EventTile(event: event, theme: theme)),
+            ...groupEvents.map(
+              (event) => _EventTile(event: event, theme: theme),
+            ),
           ],
         );
       },
@@ -321,7 +349,11 @@ class _EventTile extends StatelessWidget {
               color: style.backgroundColor,
               borderRadius: BorderRadius.circular(theme.padding * 0.8),
             ),
-            child: Icon(style.icon, color: style.iconColor, size: theme.iconSize * 0.6),
+            child: Icon(
+              style.icon,
+              color: style.iconColor,
+              size: theme.iconSize * 0.6,
+            ),
           ),
           SizedBox(width: theme.padding),
           Expanded(

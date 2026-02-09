@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:life_auctor/utils/app_constants.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:provider/provider.dart';
-import 'package:life_auctor/widgets/nav_bar.dart/bottom_bar.dart';
+import 'package:life_auctor/widgets/nav_bar/bottom_bar.dart';
 import 'package:life_auctor/widgets/barcode/scanner_overlay.dart';
 import 'package:life_auctor/widgets/barcode/product_result_card.dart';
 import 'package:life_auctor/services/barcode_service.dart';
@@ -63,7 +63,10 @@ class _BarcodeScreenState extends State<BarcodeScreen> {
 
         // Add to history
         if (mounted) {
-          final historyProvider = Provider.of<HistoryProvider>(context, listen: false);
+          final historyProvider = Provider.of<HistoryProvider>(
+            context,
+            listen: false,
+          );
           await historyProvider.addBarcodeScanEvent(code, productData?['name']);
         }
       }
@@ -83,7 +86,10 @@ class _BarcodeScreenState extends State<BarcodeScreen> {
     if (_productData == null || _scannedBarcode == null) return;
 
     final itemProvider = Provider.of<ItemProviderV3>(context, listen: false);
-    final historyProvider = Provider.of<HistoryProvider>(context, listen: false);
+    final historyProvider = Provider.of<HistoryProvider>(
+      context,
+      listen: false,
+    );
 
     // Create new item from barcode data
     final newItem = Item.create(
@@ -212,7 +218,9 @@ class _BarcodeScreenState extends State<BarcodeScreen> {
   Widget _buildProductCard() {
     final state = _isLoading
         ? ProductResultState.loading
-        : (_productData == null ? ProductResultState.notFound : ProductResultState.found);
+        : (_productData == null
+              ? ProductResultState.notFound
+              : ProductResultState.found);
 
     return ProductResultCard(
       state: state,

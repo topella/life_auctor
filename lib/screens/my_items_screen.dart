@@ -5,8 +5,8 @@ import 'package:life_auctor/models/item.dart';
 import 'package:life_auctor/providers/item_provider_v3.dart';
 import 'package:life_auctor/screens/my_items_screen/widgets/item_card.dart';
 import 'package:life_auctor/screens/my_items_screen/dialogs/edit_item_dialog.dart';
-import 'package:life_auctor/widgets/nav_bar.dart/app_bar.dart';
-import 'package:life_auctor/widgets/nav_bar.dart/bottom_bar.dart';
+import 'package:life_auctor/widgets/nav_bar/app_bar.dart';
+import 'package:life_auctor/widgets/nav_bar/bottom_bar.dart';
 
 class MyItemsScreen extends StatefulWidget {
   final VoidCallback? onBack;
@@ -23,7 +23,15 @@ class _MyItemsScreenState extends State<MyItemsScreen> {
   final String _sortBy = 'Expiring soon';
   final TextEditingController _searchController = TextEditingController();
 
-  final List<String> _categories = ['All', 'Favorites', 'Food', 'Makeup', 'Home', 'Tech', 'Other'];
+  final List<String> _categories = [
+    'All',
+    'Favorites',
+    'Food',
+    'Makeup',
+    'Home',
+    'Tech',
+    'Other',
+  ];
 
   @override
   void dispose() {
@@ -77,7 +85,12 @@ class _MyItemsScreenState extends State<MyItemsScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(height: padding),
-                      _buildSearchBar(context, searchBarHeight, searchFontSize, searchIconSize),
+                      _buildSearchBar(
+                        context,
+                        searchBarHeight,
+                        searchFontSize,
+                        searchIconSize,
+                      ),
                       SizedBox(height: padding),
                       FittedBox(
                         fit: BoxFit.scaleDown,
@@ -92,9 +105,20 @@ class _MyItemsScreenState extends State<MyItemsScreen> {
                         ),
                       ),
                       SizedBox(height: padding * 0.75),
-                      _buildCategoryFilter(context, itemProvider, categoryPadding, categoryFontSize, categoryIconSize),
+                      _buildCategoryFilter(
+                        context,
+                        itemProvider,
+                        categoryPadding,
+                        categoryFontSize,
+                        categoryIconSize,
+                      ),
                       SizedBox(height: padding * 0.75),
-                      _buildSortDropdown(context, padding, sortFontSize, sortIconSize),
+                      _buildSortDropdown(
+                        context,
+                        padding,
+                        sortFontSize,
+                        sortIconSize,
+                      ),
                       SizedBox(height: padding * 0.5),
                       Expanded(
                         child: _buildItemsList(
@@ -132,7 +156,12 @@ class _MyItemsScreenState extends State<MyItemsScreen> {
     );
   }
 
-  Widget _buildSearchBar(BuildContext context, double height, double fontSize, double iconSize) {
+  Widget _buildSearchBar(
+    BuildContext context,
+    double height,
+    double fontSize,
+    double iconSize,
+  ) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Container(
@@ -170,7 +199,13 @@ class _MyItemsScreenState extends State<MyItemsScreen> {
     );
   }
 
-  Widget _buildCategoryFilter(BuildContext context, ItemProviderV3 itemProvider, double padding, double fontSize, double iconSize) {
+  Widget _buildCategoryFilter(
+    BuildContext context,
+    ItemProviderV3 itemProvider,
+    double padding,
+    double fontSize,
+    double iconSize,
+  ) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return SingleChildScrollView(
@@ -190,7 +225,9 @@ class _MyItemsScreenState extends State<MyItemsScreen> {
                   vertical: padding * 0.5,
                 ),
                 decoration: BoxDecoration(
-                  color: isSelected ? AppConstants.primaryGreen : (isDark ? const Color(0xFF1E1E1E) : Colors.white),
+                  color: isSelected
+                      ? AppConstants.primaryGreen
+                      : (isDark ? const Color(0xFF1E1E1E) : Colors.white),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Row(
@@ -206,11 +243,17 @@ class _MyItemsScreenState extends State<MyItemsScreen> {
                         ),
                       ),
                     Text(
-                      category == 'All' || category == 'Favorites' ? '$category ($count)' : category,
+                      category == 'All' || category == 'Favorites'
+                          ? '$category ($count)'
+                          : category,
                       style: TextStyle(
                         fontSize: fontSize,
-                        color: isSelected ? Colors.white : (isDark ? Colors.white : Colors.black87),
-                        fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+                        color: isSelected
+                            ? Colors.white
+                            : (isDark ? Colors.white : Colors.black87),
+                        fontWeight: isSelected
+                            ? FontWeight.w600
+                            : FontWeight.normal,
                       ),
                     ),
                   ],
@@ -223,7 +266,12 @@ class _MyItemsScreenState extends State<MyItemsScreen> {
     );
   }
 
-  Widget _buildSortDropdown(BuildContext context, double padding, double fontSize, double iconSize) {
+  Widget _buildSortDropdown(
+    BuildContext context,
+    double padding,
+    double fontSize,
+    double iconSize,
+  ) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Container(
@@ -274,13 +322,17 @@ class _MyItemsScreenState extends State<MyItemsScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(
-              _selectedCategory == 'Favorites' ? Icons.star_border : Icons.inventory_2_outlined,
+              _selectedCategory == 'Favorites'
+                  ? Icons.star_border
+                  : Icons.inventory_2_outlined,
               size: emptyIconSize,
               color: isDark ? Colors.grey[400] : Colors.grey[400],
             ),
             SizedBox(height: padding),
             Text(
-              _selectedCategory == 'Favorites' ? 'No favorite items yet' : 'No items found',
+              _selectedCategory == 'Favorites'
+                  ? 'No favorite items yet'
+                  : 'No items found',
               style: TextStyle(
                 fontSize: emptyTitleSize,
                 color: isDark ? Colors.grey[400] : Colors.grey[600],
@@ -324,7 +376,11 @@ class _MyItemsScreenState extends State<MyItemsScreen> {
     );
   }
 
-  void _showEditDialog(BuildContext context, Item item, ItemProviderV3 provider) {
+  void _showEditDialog(
+    BuildContext context,
+    Item item,
+    ItemProviderV3 provider,
+  ) {
     showDialog(
       context: context,
       builder: (context) => EditItemDialog(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:life_auctor/widgets/nav_bar.dart/app_bar.dart';
+import 'package:life_auctor/widgets/nav_bar/app_bar.dart';
 import 'package:life_auctor/models/notification_item.dart';
 import 'package:life_auctor/models/notification_type_extension.dart';
 import 'package:life_auctor/providers/notification_provider.dart';
@@ -28,11 +28,17 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     final unreadCount = notificationProvider.unreadCount;
 
     return Scaffold(
-      backgroundColor: context.isDark ? AppConstants.darkBackground : Colors.grey[100],
+      backgroundColor: context.isDark
+          ? AppConstants.darkBackground
+          : Colors.grey[100],
       appBar: const CustomAppBar(showBackButton: false),
       body: SafeArea(
         child: notificationProvider.isLoading
-            ? Center(child: CircularProgressIndicator(color: AppConstants.primaryGreen))
+            ? Center(
+                child: CircularProgressIndicator(
+                  color: AppConstants.primaryGreen,
+                ),
+              )
             : LayoutBuilder(
                 builder: (context, constraints) {
                   final sizes = NotificationSizes(constraints.maxWidth);
@@ -61,7 +67,9 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                                 ),
                                 decoration: BoxDecoration(
                                   color: Colors.red,
-                                  borderRadius: BorderRadius.circular(sizes.badgeSize * 0.5),
+                                  borderRadius: BorderRadius.circular(
+                                    sizes.badgeSize * 0.5,
+                                  ),
                                 ),
                                 child: Text(
                                   '$unreadCount',
@@ -82,25 +90,34 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                         margin: EdgeInsets.only(bottom: sizes.padding),
                         child: ListView(
                           scrollDirection: Axis.horizontal,
-                          padding: EdgeInsets.symmetric(horizontal: sizes.padding),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: sizes.padding,
+                          ),
                           children: NotificationFilter.values.map((filter) {
                             final isSelected = filter == _selectedFilter;
                             return Padding(
-                              padding: EdgeInsets.only(right: sizes.filterSpacing),
+                              padding: EdgeInsets.only(
+                                right: sizes.filterSpacing,
+                              ),
                               child: FilterChip(
                                 label: Text(
                                   filter.displayName,
                                   style: TextStyle(
-                                    color: isSelected ? Colors.white : context.adaptiveTextColor,
+                                    color: isSelected
+                                        ? Colors.white
+                                        : context.adaptiveTextColor,
                                     fontSize: sizes.filterFontSize,
-                                    fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+                                    fontWeight: isSelected
+                                        ? FontWeight.w600
+                                        : FontWeight.normal,
                                   ),
                                 ),
                                 selected: isSelected,
                                 onSelected: (selected) {
                                   setState(() => _selectedFilter = filter);
                                 },
-                                backgroundColor: context.adaptiveBackgroundColor,
+                                backgroundColor:
+                                    context.adaptiveBackgroundColor,
                                 selectedColor: AppConstants.primaryGreen,
                                 checkmarkColor: Colors.white,
                                 padding: EdgeInsets.symmetric(
@@ -116,14 +133,21 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                       // Mark all as read button
                       if (unreadCount > 0)
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: sizes.padding, vertical: sizes.padding * 0.5),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: sizes.padding,
+                            vertical: sizes.padding * 0.5,
+                          ),
                           child: SizedBox(
                             width: double.infinity,
                             child: OutlinedButton.icon(
                               onPressed: () async {
                                 await notificationProvider.markAllAsRead();
                               },
-                              icon: Icon(Icons.done_all, color: AppConstants.primaryGreen, size: sizes.filterFontSize * 1.3),
+                              icon: Icon(
+                                Icons.done_all,
+                                color: AppConstants.primaryGreen,
+                                size: sizes.filterFontSize * 1.3,
+                              ),
                               label: Text(
                                 'Mark all as read',
                                 style: TextStyle(
@@ -132,9 +156,18 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                                 ),
                               ),
                               style: OutlinedButton.styleFrom(
-                                side: BorderSide(color: AppConstants.primaryGreen, width: 2),
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(sizes.padding * 0.5)),
-                                padding: EdgeInsets.symmetric(vertical: sizes.padding * 0.75),
+                                side: BorderSide(
+                                  color: AppConstants.primaryGreen,
+                                  width: 2,
+                                ),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(
+                                    sizes.padding * 0.5,
+                                  ),
+                                ),
+                                padding: EdgeInsets.symmetric(
+                                  vertical: sizes.padding * 0.75,
+                                ),
                               ),
                             ),
                           ),
@@ -145,10 +178,13 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                         child: filteredNotifications.isEmpty
                             ? _buildEmptyState(sizes)
                             : ListView.builder(
-                                padding: EdgeInsets.symmetric(horizontal: sizes.padding),
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: sizes.padding,
+                                ),
                                 itemCount: filteredNotifications.length,
                                 itemBuilder: (context, index) {
-                                  final notification = filteredNotifications[index];
+                                  final notification =
+                                      filteredNotifications[index];
                                   return _buildNotificationCard(
                                     notification,
                                     sizes,
@@ -207,7 +243,9 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
       decoration: BoxDecoration(
         color: notification.isRead
             ? context.adaptiveBackgroundColor
-            : (context.isDark ? const Color(0xFF1E3A1E) : const Color(0xFFE8F5E9)),
+            : (context.isDark
+                  ? const Color(0xFF1E3A1E)
+                  : const Color(0xFFE8F5E9)),
         borderRadius: BorderRadius.circular(sizes.cardSpacing),
         border: Border.all(
           color: notification.isRead
@@ -243,7 +281,10 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     );
   }
 
-  Widget _buildNotificationIcon(NotificationType type, NotificationSizes sizes) {
+  Widget _buildNotificationIcon(
+    NotificationType type,
+    NotificationSizes sizes,
+  ) {
     final iconColor = type.color;
     return Container(
       width: sizes.iconSize,
@@ -260,7 +301,10 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     );
   }
 
-  Widget _buildNotificationContent(NotificationItem notification, NotificationSizes sizes) {
+  Widget _buildNotificationContent(
+    NotificationItem notification,
+    NotificationSizes sizes,
+  ) {
     final timeAgo = TimeAgoFormatter.format(notification.timestamp);
 
     return Column(

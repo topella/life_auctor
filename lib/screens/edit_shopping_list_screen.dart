@@ -3,7 +3,7 @@ import 'package:life_auctor/utils/app_constants.dart';
 import 'package:provider/provider.dart';
 import 'package:life_auctor/models/shopping_list.dart';
 import 'package:life_auctor/providers/shopping_list_provider_v2.dart';
-import 'package:life_auctor/widgets/nav_bar.dart/app_bar.dart';
+import 'package:life_auctor/widgets/nav_bar/app_bar.dart';
 
 class EditShoppingListScreen extends StatefulWidget {
   final ShoppingList list;
@@ -44,12 +44,19 @@ class _EditShoppingListScreenState extends State<EditShoppingListScreen> {
   void initState() {
     super.initState();
     _nameController = TextEditingController(text: widget.list.name);
-    _descriptionController = TextEditingController(text: widget.list.description ?? '');
+    _descriptionController = TextEditingController(
+      text: widget.list.description ?? '',
+    );
     _selectedCategory = widget.list.category ?? 'Groceries';
     _selectedPriority = widget.list.priority ?? 'Normal';
     _enableNotifications = widget.list.enableNotifications;
     _autoAddToCalendar = widget.list.autoAddToCalendar;
-    _tags = widget.list.tags?.split(',').where((t) => t.trim().isNotEmpty).toList() ?? [];
+    _tags =
+        widget.list.tags
+            ?.split(',')
+            .where((t) => t.trim().isNotEmpty)
+            .toList() ??
+        [];
   }
 
   @override
@@ -71,7 +78,10 @@ class _EditShoppingListScreenState extends State<EditShoppingListScreen> {
       return;
     }
 
-    final provider = Provider.of<ShoppingListProviderV2>(context, listen: false);
+    final provider = Provider.of<ShoppingListProviderV2>(
+      context,
+      listen: false,
+    );
 
     final updatedList = widget.list.copyWith(
       name: _nameController.text.trim(),
@@ -176,7 +186,8 @@ class _EditShoppingListScreenState extends State<EditShoppingListScreen> {
                   _buildDropdown(
                     value: _selectedCategory,
                     items: _categories,
-                    onChanged: (value) => setState(() => _selectedCategory = value!),
+                    onChanged: (value) =>
+                        setState(() => _selectedCategory = value!),
                     isDark: isDark,
                     fontSize: inputSize,
                   ),
@@ -188,7 +199,8 @@ class _EditShoppingListScreenState extends State<EditShoppingListScreen> {
                   _buildDropdown(
                     value: _selectedPriority,
                     items: _priorities,
-                    onChanged: (value) => setState(() => _selectedPriority = value!),
+                    onChanged: (value) =>
+                        setState(() => _selectedPriority = value!),
                     isDark: isDark,
                     fontSize: inputSize,
                   ),
@@ -210,7 +222,10 @@ class _EditShoppingListScreenState extends State<EditShoppingListScreen> {
                       SizedBox(width: padding * 0.5),
                       IconButton(
                         onPressed: _addTag,
-                        icon: const Icon(Icons.add_circle, color: AppConstants.primaryGreen),
+                        icon: const Icon(
+                          Icons.add_circle,
+                          color: AppConstants.primaryGreen,
+                        ),
                         iconSize: padding * 1.5,
                       ),
                     ],
@@ -222,11 +237,18 @@ class _EditShoppingListScreenState extends State<EditShoppingListScreen> {
                       runSpacing: padding * 0.5,
                       children: _tags.map((tag) {
                         return Chip(
-                          label: Text(tag, style: TextStyle(fontSize: labelSize * 0.9)),
+                          label: Text(
+                            tag,
+                            style: TextStyle(fontSize: labelSize * 0.9),
+                          ),
                           deleteIcon: const Icon(Icons.close, size: 16),
                           onDeleted: () => _removeTag(tag),
-                          backgroundColor: isDark ? const Color(0xFF1E1E1E) : Colors.white,
-                          labelStyle: TextStyle(color: isDark ? Colors.white : Colors.black87),
+                          backgroundColor: isDark
+                              ? const Color(0xFF1E1E1E)
+                              : Colors.white,
+                          labelStyle: TextStyle(
+                            color: isDark ? Colors.white : Colors.black87,
+                          ),
                         );
                       }).toList(),
                     ),
@@ -353,7 +375,10 @@ class _EditShoppingListScreenState extends State<EditShoppingListScreen> {
         child: DropdownButton<String>(
           value: value,
           isExpanded: true,
-          icon: Icon(Icons.arrow_drop_down, color: isDark ? Colors.white : Colors.black87),
+          icon: Icon(
+            Icons.arrow_drop_down,
+            color: isDark ? Colors.white : Colors.black87,
+          ),
           style: TextStyle(
             fontSize: fontSize,
             color: isDark ? Colors.white : Colors.black87,

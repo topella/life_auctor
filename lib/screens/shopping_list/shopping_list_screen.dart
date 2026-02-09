@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:life_auctor/utils/date_formatter.dart';
 import 'package:life_auctor/utils/app_constants.dart';
 import 'package:provider/provider.dart';
-import 'package:life_auctor/widgets/nav_bar.dart/app_bar.dart';
+import 'package:life_auctor/widgets/nav_bar/app_bar.dart';
 import 'package:life_auctor/providers/shopping_list_provider_v2.dart';
 import 'package:life_auctor/widgets/guest_banner.dart';
 import 'package:life_auctor/screens/shopping_list/create_list_screen.dart';
@@ -34,7 +34,10 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
   }
 
   void _showExportDialog() {
-    final listProvider = Provider.of<ShoppingListProviderV2>(context, listen: false);
+    final listProvider = Provider.of<ShoppingListProviderV2>(
+      context,
+      listen: false,
+    );
 
     if (listProvider.lists.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -79,7 +82,8 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
               children: [
                 // Guest banner
                 const GuestBanner(
-                  message: 'Guest mode: you can create lists, but cannot share them with other users.',
+                  message:
+                      'Guest mode: you can create lists, but cannot share them with other users.',
                   icon: Icons.share_outlined,
                 ),
                 Expanded(
@@ -88,7 +92,12 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        _buildSearchBar(searchBarHeight, searchFontSize, padding, isDark),
+                        _buildSearchBar(
+                          searchBarHeight,
+                          searchFontSize,
+                          padding,
+                          isDark,
+                        ),
                         SizedBox(height: padding),
                         Text(
                           'Shopping Lists',
@@ -111,7 +120,12 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
                         ),
                         SizedBox(height: padding),
                         Expanded(
-                          child: _buildListsView(padding, listTitleSize, listSubtitleSize, isDark),
+                          child: _buildListsView(
+                            padding,
+                            listTitleSize,
+                            listSubtitleSize,
+                            isDark,
+                          ),
                         ),
                       ],
                     ),
@@ -125,7 +139,12 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
     );
   }
 
-  Widget _buildSearchBar(double height, double fontSize, double padding, bool isDark) {
+  Widget _buildSearchBar(
+    double height,
+    double fontSize,
+    double padding,
+    bool isDark,
+  ) {
     return Container(
       height: height,
       decoration: BoxDecoration(
@@ -134,14 +153,28 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
       ),
       child: TextField(
         onChanged: (value) => setState(() => _searchQuery = value),
-        style: TextStyle(fontSize: fontSize, color: isDark ? Colors.white : Colors.black87),
+        style: TextStyle(
+          fontSize: fontSize,
+          color: isDark ? Colors.white : Colors.black87,
+        ),
         decoration: InputDecoration(
           hintText: 'Search lists...',
-          hintStyle: TextStyle(color: isDark ? Colors.grey[600] : Colors.grey[400], fontSize: fontSize),
-          prefixIcon: Icon(Icons.search, color: isDark ? Colors.grey[600] : Colors.grey[400], size: fontSize * 1.7),
+          hintStyle: TextStyle(
+            color: isDark ? Colors.grey[600] : Colors.grey[400],
+            fontSize: fontSize,
+          ),
+          prefixIcon: Icon(
+            Icons.search,
+            color: isDark ? Colors.grey[600] : Colors.grey[400],
+            size: fontSize * 1.7,
+          ),
           suffixIcon: _searchQuery.isNotEmpty
               ? IconButton(
-                  icon: Icon(Icons.clear, color: isDark ? Colors.grey[500] : Colors.grey[600], size: fontSize * 1.7),
+                  icon: Icon(
+                    Icons.clear,
+                    color: isDark ? Colors.grey[500] : Colors.grey[600],
+                    size: fontSize * 1.7,
+                  ),
                   onPressed: () => setState(() => _searchQuery = ''),
                 )
               : null,
@@ -158,11 +191,26 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
         Expanded(
           child: OutlinedButton.icon(
             onPressed: _showCreateListDialog,
-            icon: Icon(Icons.add_circle_outline, color: AppConstants.primaryGreen, size: fontSize * 1.5),
-            label: Text('Create new list', style: TextStyle(fontSize: fontSize, color: AppConstants.primaryGreen)),
+            icon: Icon(
+              Icons.add_circle_outline,
+              color: AppConstants.primaryGreen,
+              size: fontSize * 1.5,
+            ),
+            label: Text(
+              'Create new list',
+              style: TextStyle(
+                fontSize: fontSize,
+                color: AppConstants.primaryGreen,
+              ),
+            ),
             style: OutlinedButton.styleFrom(
-              side: const BorderSide(color: AppConstants.primaryGreen, width: 2),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+              side: const BorderSide(
+                color: AppConstants.primaryGreen,
+                width: 2,
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
               padding: EdgeInsets.symmetric(vertical: padding),
             ),
           ),
@@ -171,11 +219,20 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
         Expanded(
           child: OutlinedButton.icon(
             onPressed: _showExportDialog,
-            icon: Icon(Icons.ios_share, color: Colors.orange, size: fontSize * 1.5),
-            label: Text('Export list', style: TextStyle(fontSize: fontSize, color: Colors.orange)),
+            icon: Icon(
+              Icons.ios_share,
+              color: Colors.orange,
+              size: fontSize * 1.5,
+            ),
+            label: Text(
+              'Export list',
+              style: TextStyle(fontSize: fontSize, color: Colors.orange),
+            ),
             style: OutlinedButton.styleFrom(
               side: const BorderSide(color: Colors.orange, width: 2),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
               padding: EdgeInsets.symmetric(vertical: padding),
             ),
           ),
@@ -184,11 +241,18 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
     );
   }
 
-  Widget _buildListsView(double padding, double titleSize, double subtitleSize, bool isDark) {
+  Widget _buildListsView(
+    double padding,
+    double titleSize,
+    double subtitleSize,
+    bool isDark,
+  ) {
     return Consumer<ShoppingListProviderV2>(
       builder: (context, listProvider, child) {
         if (listProvider.isLoading) {
-          return const Center(child: CircularProgressIndicator(color: AppConstants.primaryGreen));
+          return const Center(
+            child: CircularProgressIndicator(color: AppConstants.primaryGreen),
+          );
         }
 
         final filteredLists = listProvider.lists.where((list) {
@@ -200,17 +264,29 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.shopping_cart_outlined, size: 80, color: Colors.grey[400]),
+                Icon(
+                  Icons.shopping_cart_outlined,
+                  size: 80,
+                  color: Colors.grey[400],
+                ),
                 SizedBox(height: padding),
                 Text(
-                  _searchQuery.isEmpty ? 'No shopping lists yet' : 'No lists found',
-                  style: TextStyle(fontSize: titleSize * 0.7, color: Colors.grey[600]),
+                  _searchQuery.isEmpty
+                      ? 'No shopping lists yet'
+                      : 'No lists found',
+                  style: TextStyle(
+                    fontSize: titleSize * 0.7,
+                    color: Colors.grey[600],
+                  ),
                 ),
                 if (_searchQuery.isEmpty) ...[
                   SizedBox(height: padding * 0.5),
                   Text(
                     'Tap "Create new list" to get started',
-                    style: TextStyle(fontSize: subtitleSize, color: Colors.grey[500]),
+                    style: TextStyle(
+                      fontSize: subtitleSize,
+                      color: Colors.grey[500],
+                    ),
                   ),
                 ],
               ],
@@ -239,7 +315,9 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
                   context: context,
                   builder: (context) => AlertDialog(
                     title: const Text('Delete List'),
-                    content: Text('Are you sure you want to delete "${list.name}"?'),
+                    content: Text(
+                      'Are you sure you want to delete "${list.name}"?',
+                    ),
                     actions: [
                       TextButton(
                         onPressed: () => Navigator.pop(context, false),
@@ -247,7 +325,9 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
                       ),
                       ElevatedButton(
                         onPressed: () => Navigator.pop(context, true),
-                        style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.red,
+                        ),
                         child: const Text('Delete'),
                       ),
                     ],
@@ -277,7 +357,8 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ShoppingListDetailScreen(list: list),
+                        builder: (context) =>
+                            ShoppingListDetailScreen(list: list),
                       ),
                     );
                   },
@@ -289,27 +370,46 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
                           children: [
                             Text(
                               list.name,
-                              style: TextStyle(fontSize: titleSize, fontWeight: FontWeight.bold, color: isDark ? Colors.white : Colors.black87),
+                              style: TextStyle(
+                                fontSize: titleSize,
+                                fontWeight: FontWeight.bold,
+                                color: isDark ? Colors.white : Colors.black87,
+                              ),
                             ),
                             SizedBox(height: padding * 0.3),
                             Text(
                               '${list.itemIds.length} items - created ${DateFormatter.formatDate(list.createdAt)}',
-                              style: TextStyle(fontSize: subtitleSize, color: isDark ? Colors.grey[400] : Colors.grey[600]),
+                              style: TextStyle(
+                                fontSize: subtitleSize,
+                                color: isDark
+                                    ? Colors.grey[400]
+                                    : Colors.grey[600],
+                              ),
                             ),
                             if (list.category != null) ...[
                               SizedBox(height: padding * 0.2),
                               Row(
                                 children: [
-                                  Icon(Icons.category_outlined, size: subtitleSize, color: Colors.grey[500]),
+                                  Icon(
+                                    Icons.category_outlined,
+                                    size: subtitleSize,
+                                    color: Colors.grey[500],
+                                  ),
                                   SizedBox(width: padding * 0.2),
                                   Text(
                                     list.category!,
-                                    style: TextStyle(fontSize: subtitleSize * 0.9, color: isDark ? Colors.grey[500] : Colors.grey[600]),
+                                    style: TextStyle(
+                                      fontSize: subtitleSize * 0.9,
+                                      color: isDark
+                                          ? Colors.grey[500]
+                                          : Colors.grey[600],
+                                    ),
                                   ),
                                 ],
                               ),
                             ],
-                            if (list.inStockCount > 0 || list.runOutCount > 0) ...[
+                            if (list.inStockCount > 0 ||
+                                list.runOutCount > 0) ...[
                               SizedBox(height: padding * 0.2),
                               Text(
                                 list.runOutCount > 0
@@ -317,7 +417,9 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
                                     : '${list.inStockCount} items in stock',
                                 style: TextStyle(
                                   fontSize: subtitleSize,
-                                  color: list.runOutCount > 0 ? Colors.orange : AppConstants.primaryGreen,
+                                  color: list.runOutCount > 0
+                                      ? Colors.orange
+                                      : AppConstants.primaryGreen,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
@@ -325,7 +427,11 @@ class _ShoppingListScreenState extends State<ShoppingListScreen> {
                           ],
                         ),
                       ),
-                      Icon(Icons.arrow_forward_ios, color: isDark ? Colors.grey[600] : Colors.grey[400], size: titleSize * 0.7),
+                      Icon(
+                        Icons.arrow_forward_ios,
+                        color: isDark ? Colors.grey[600] : Colors.grey[400],
+                        size: titleSize * 0.7,
+                      ),
                     ],
                   ),
                 ),

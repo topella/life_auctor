@@ -3,8 +3,8 @@ import 'package:life_auctor/utils/app_constants.dart';
 import 'package:provider/provider.dart';
 import 'package:life_auctor/models/item.dart';
 import 'package:life_auctor/providers/item_provider_v3.dart';
-import 'package:life_auctor/widgets/nav_bar.dart/app_bar.dart';
-import 'package:life_auctor/widgets/nav_bar.dart/bottom_bar.dart';
+import 'package:life_auctor/widgets/nav_bar/app_bar.dart';
+import 'package:life_auctor/widgets/nav_bar/bottom_bar.dart';
 import 'package:life_auctor/widgets/form/form_label.dart';
 import 'package:life_auctor/widgets/form/form_text_field.dart';
 import 'package:life_auctor/widgets/form/form_dropdown.dart';
@@ -102,8 +102,12 @@ class _AddItemScreenState extends State<AddItemScreen> {
     final newItem = Item.create(
       name: _nameController.text.trim(),
       category: _selectedCategory,
-      quantity: _quantityController.text.trim().isEmpty ? null : _quantityController.text.trim(),
-      location: _locationController.text.trim().isEmpty ? null : _locationController.text.trim(),
+      quantity: _quantityController.text.trim().isEmpty
+          ? null
+          : _quantityController.text.trim(),
+      location: _locationController.text.trim().isEmpty
+          ? null
+          : _locationController.text.trim(),
       expiryDate: _expiryDate,
       price: price,
       isFavorite: _isFavorite,
@@ -161,7 +165,8 @@ class _AddItemScreenState extends State<AddItemScreen> {
                 FormDropdown(
                   value: _selectedCategory,
                   items: AppCategories.all,
-                  onChanged: (value) => setState(() => _selectedCategory = value!),
+                  onChanged: (value) =>
+                      setState(() => _selectedCategory = value!),
                 ),
                 const SizedBox(height: 16),
 
@@ -228,10 +233,17 @@ class _AddItemScreenState extends State<AddItemScreen> {
             onPressed: widget.onBack,
             style: OutlinedButton.styleFrom(
               foregroundColor: isDark ? Colors.grey[400] : Colors.grey[600],
-              side: BorderSide(color: isDark ? Colors.grey[700]! : Colors.grey[200]!),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              side: BorderSide(
+                color: isDark ? Colors.grey[700]! : Colors.grey[200]!,
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
             ),
-            child: const Text('Cancel', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+            child: const Text(
+              'Cancel',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+            ),
           ),
         ),
         const SizedBox(width: 16),
@@ -243,9 +255,14 @@ class _AddItemScreenState extends State<AddItemScreen> {
             style: ElevatedButton.styleFrom(
               backgroundColor: AppConstants.primaryGreen,
               foregroundColor: Colors.white,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
             ),
-            child: const Text('Add Item', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+            child: const Text(
+              'Add Item',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+            ),
           ),
         ),
       ],

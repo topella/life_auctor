@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:life_auctor/providers/item_provider_v3.dart';
-import 'package:life_auctor/widgets/nav_bar.dart/app_bar.dart';
+import 'package:life_auctor/widgets/nav_bar/app_bar.dart';
 import 'package:life_auctor/widgets/analytics/period_selector.dart';
 import 'package:life_auctor/widgets/analytics/product_statistics_card.dart';
 import 'package:life_auctor/widgets/analytics/expense_history_card.dart';
@@ -58,22 +58,27 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                 final expenseData = AnalyticsCalculator.calculateExpenseHistory(
                   itemProvider.items,
                 );
-                final frequentlyExpired = AnalyticsCalculator.getFrequentlyExpired(
-                  itemProvider.items,
-                );
+                final frequentlyExpired =
+                    AnalyticsCalculator.getFrequentlyExpired(
+                      itemProvider.items,
+                    );
 
                 return SingleChildScrollView(
                   padding: EdgeInsets.all(padding),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Analytics', style: AppTextStyles.title(context, titleSize)),
+                      Text(
+                        'Analytics',
+                        style: AppTextStyles.title(context, titleSize),
+                      ),
                       SizedBox(height: padding),
 
                       PeriodSelector(
                         selectedPeriod: _selectedPeriod,
                         periods: _periods,
-                        onPeriodChanged: (period) => setState(() => _selectedPeriod = period),
+                        onPeriodChanged: (period) =>
+                            setState(() => _selectedPeriod = period),
                         padding: padding,
                         fontSize: labelSize,
                       ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:life_auctor/utils/app_constants.dart';
 import 'package:provider/provider.dart';
-import 'package:life_auctor/widgets/nav_bar.dart/app_bar.dart';
+import 'package:life_auctor/widgets/nav_bar/app_bar.dart';
 import 'package:life_auctor/providers/theme_provider.dart';
 import 'package:life_auctor/providers/item_provider_v3.dart';
 import 'package:life_auctor/providers/settings_provider.dart';

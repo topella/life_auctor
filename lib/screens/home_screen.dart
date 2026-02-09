@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:life_auctor/widgets/buttons/quick_actions.dart';
-import 'package:life_auctor/widgets/nav_bar.dart/app_bar.dart';
+import 'package:life_auctor/widgets/nav_bar/app_bar.dart';
 import 'package:life_auctor/widgets/product_summary.dart';
 import 'package:life_auctor/widgets/guest_banner.dart';
 
@@ -123,7 +123,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       vertical: verticalPadding * 0.5,
                     ),
                     child: const GuestBanner(
-                      message: 'Sign up to sync your data across devices and access all features!',
+                      message:
+                          'Sign up to sync your data across devices and access all features!',
                     ),
                   ),
 

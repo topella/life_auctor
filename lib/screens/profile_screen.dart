@@ -3,7 +3,7 @@ import 'package:life_auctor/utils/app_constants.dart';
 import 'package:provider/provider.dart';
 import 'package:life_auctor/providers/item_provider_v3.dart';
 import 'package:life_auctor/providers/auth_provider.dart';
-import 'package:life_auctor/widgets/nav_bar.dart/app_bar.dart';
+import 'package:life_auctor/widgets/nav_bar/app_bar.dart';
 import 'package:life_auctor/screens/settings_screen.dart';
 import 'package:life_auctor/screens/edit_profile_screen.dart';
 import 'package:life_auctor/screens/auth/signup_screen.dart';
@@ -31,7 +31,8 @@ class _ProfileTheme {
 
   // Colors
   Color get cardColor => isDark ? const Color(0xFF1E1E1E) : Colors.white;
-  Color get backgroundColor => isDark ? const Color(0xFF121212) : Colors.grey[100]!;
+  Color get backgroundColor =>
+      isDark ? const Color(0xFF121212) : Colors.grey[100]!;
   Color get textColor => isDark ? Colors.white : Colors.black87;
   Color get subtitleColor => isDark ? Colors.grey[400]! : Colors.grey[600]!;
   Color get dividerColor => isDark ? Colors.grey[800]! : Colors.grey[200]!;
@@ -73,13 +74,22 @@ class ProfileScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _AccountDetailsCard(authProvider: authProvider, theme: theme),
+                      _AccountDetailsCard(
+                        authProvider: authProvider,
+                        theme: theme,
+                      ),
                       SizedBox(height: theme.spacing),
                       _MembershipCard(authProvider: authProvider, theme: theme),
                       SizedBox(height: theme.spacing),
-                      _ActivitySection(itemProvider: itemProvider, theme: theme),
+                      _ActivitySection(
+                        itemProvider: itemProvider,
+                        theme: theme,
+                      ),
                       SizedBox(height: theme.spacing),
-                      _QuickActionsCard(authProvider: authProvider, theme: theme),
+                      _QuickActionsCard(
+                        authProvider: authProvider,
+                        theme: theme,
+                      ),
                     ],
                   ),
                 );
@@ -90,7 +100,6 @@ class ProfileScreen extends StatelessWidget {
       ),
     );
   }
-
 }
 
 class _AccountDetailsCard extends StatelessWidget {
@@ -153,7 +162,10 @@ class _AccountDetailsCard extends StatelessWidget {
                     SizedBox(height: theme.padding * 0.1),
                     Text(
                       userEmail,
-                      style: TextStyle(fontSize: theme.emailFontSize, color: theme.subtitleColor),
+                      style: TextStyle(
+                        fontSize: theme.emailFontSize,
+                        color: theme.subtitleColor,
+                      ),
                       overflow: TextOverflow.ellipsis,
                     ),
                     if (isGuest) ...[
@@ -162,22 +174,36 @@ class _AccountDetailsCard extends StatelessWidget {
                         width: double.infinity,
                         child: ElevatedButton(
                           onPressed: () async {
-                            await Provider.of<AuthProvider>(context, listen: false).signOut();
-                            await Future.delayed(const Duration(milliseconds: 100));
+                            await Provider.of<AuthProvider>(
+                              context,
+                              listen: false,
+                            ).signOut();
+                            await Future.delayed(
+                              const Duration(milliseconds: 100),
+                            );
                             if (!context.mounted) return;
                             Navigator.of(context).push(
-                              MaterialPageRoute(builder: (context) => const SignupScreen()),
+                              MaterialPageRoute(
+                                builder: (context) => const SignupScreen(),
+                              ),
                             );
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppConstants.primaryGreen,
                             foregroundColor: Colors.white,
-                            padding: EdgeInsets.symmetric(vertical: theme.padding * 0.5),
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                            padding: EdgeInsets.symmetric(
+                              vertical: theme.padding * 0.5,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
                           ),
                           child: Text(
                             'Sign Up / Login',
-                            style: TextStyle(fontSize: theme.emailFontSize, fontWeight: FontWeight.w600),
+                            style: TextStyle(
+                              fontSize: theme.emailFontSize,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         ),
                       ),
@@ -190,7 +216,9 @@ class _AccountDetailsCard extends StatelessWidget {
                           vertical: theme.padding * 0.1,
                         ),
                         decoration: BoxDecoration(
-                          color: AppConstants.primaryGreen.withValues(alpha: 0.1),
+                          color: AppConstants.primaryGreen.withValues(
+                            alpha: 0.1,
+                          ),
                           borderRadius: BorderRadius.circular(4),
                         ),
                         child: Text(
@@ -217,7 +245,6 @@ class _AccountDetailsCard extends StatelessWidget {
       ],
     );
   }
-
 }
 
 class _MembershipCard extends StatelessWidget {
@@ -302,12 +329,18 @@ class _MembershipInfo extends StatelessWidget {
         SizedBox(height: spacing),
         Text(
           'Active since: 17 January 2025',
-          style: TextStyle(fontSize: theme.membershipTextSize, color: theme.subtitleColor),
+          style: TextStyle(
+            fontSize: theme.membershipTextSize,
+            color: theme.subtitleColor,
+          ),
         ),
         SizedBox(height: spacing * 0.3),
         Text(
           'Next billing date: 17 June 2025',
-          style: TextStyle(fontSize: theme.membershipTextSize, color: theme.subtitleColor),
+          style: TextStyle(
+            fontSize: theme.membershipTextSize,
+            color: theme.subtitleColor,
+          ),
         ),
         SizedBox(height: spacing * 0.5),
         Text(
@@ -343,11 +376,13 @@ class _ManageButton extends StatelessWidget {
       ),
       child: Text(
         'Manage Plan',
-        style: TextStyle(fontSize: theme.buttonFontSize, fontWeight: FontWeight.w600),
+        style: TextStyle(
+          fontSize: theme.buttonFontSize,
+          fontWeight: FontWeight.w600,
+        ),
       ),
     );
   }
-
 }
 
 class _ActivitySection extends StatelessWidget {
@@ -373,9 +408,17 @@ class _ActivitySection extends StatelessWidget {
           ),
           child: Column(
             children: [
-              _ActivityRow(label: 'Items added', value: itemsCount.toString(), theme: theme),
+              _ActivityRow(
+                label: 'Items added',
+                value: itemsCount.toString(),
+                theme: theme,
+              ),
               Divider(height: 1, color: theme.dividerColor),
-              _ActivityRow(label: 'Favorites', value: favoritesCount.toString(), theme: theme),
+              _ActivityRow(
+                label: 'Favorites',
+                value: favoritesCount.toString(),
+                theme: theme,
+              ),
               Divider(height: 1, color: theme.dividerColor),
               _ActivityRow(label: 'Lists created', value: '0', theme: theme),
             ],
@@ -391,7 +434,11 @@ class _ActivityRow extends StatelessWidget {
   final String value;
   final _ProfileTheme theme;
 
-  const _ActivityRow({required this.label, required this.value, required this.theme});
+  const _ActivityRow({
+    required this.label,
+    required this.value,
+    required this.theme,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -406,7 +453,10 @@ class _ActivityRow extends StatelessWidget {
           Expanded(
             child: Text(
               label,
-              style: TextStyle(fontSize: theme.activityFontSize, color: theme.subtitleColor),
+              style: TextStyle(
+                fontSize: theme.activityFontSize,
+                color: theme.subtitleColor,
+              ),
             ),
           ),
           Text(
@@ -421,7 +471,6 @@ class _ActivityRow extends StatelessWidget {
       ),
     );
   }
-
 }
 
 class _QuickActionsCard extends StatelessWidget {
@@ -450,7 +499,8 @@ class _QuickActionsCard extends StatelessWidget {
                 onTap: () => Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => EditProfileScreen(onBack: () => Navigator.pop(context)),
+                    builder: (context) =>
+                        EditProfileScreen(onBack: () => Navigator.pop(context)),
                   ),
                 ),
                 theme: theme,
@@ -462,7 +512,8 @@ class _QuickActionsCard extends StatelessWidget {
                 onTap: () => Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => SettingsScreen(onBack: () => Navigator.pop(context)),
+                    builder: (context) =>
+                        SettingsScreen(onBack: () => Navigator.pop(context)),
                   ),
                 ),
                 theme: theme,
@@ -472,7 +523,9 @@ class _QuickActionsCard extends StatelessWidget {
                 icon: Icons.security_outlined,
                 label: 'Privacy & Security',
                 onTap: () => ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Privacy & Security - Coming soon')),
+                  const SnackBar(
+                    content: Text('Privacy & Security - Coming soon'),
+                  ),
                 ),
                 theme: theme,
               ),
@@ -500,7 +553,11 @@ class _QuickActionsCard extends StatelessWidget {
     );
   }
 
-  void _showLogoutDialog(BuildContext context, AuthProvider authProvider, _ProfileTheme theme) {
+  void _showLogoutDialog(
+    BuildContext context,
+    AuthProvider authProvider,
+    _ProfileTheme theme,
+  ) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -508,7 +565,11 @@ class _QuickActionsCard extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         title: Text(
           'Log Out',
-          style: TextStyle(color: theme.textColor, fontSize: 20, fontWeight: FontWeight.bold),
+          style: TextStyle(
+            color: theme.textColor,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         content: Text(
           'Are you sure you want to log out?',
@@ -527,7 +588,9 @@ class _QuickActionsCard extends StatelessWidget {
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.red,
               foregroundColor: Colors.white,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
             ),
             child: const Text('Log Out'),
           ),
@@ -569,9 +632,19 @@ class _ActionRow extends StatelessWidget {
             Icon(icon, size: theme.iconSize, color: color),
             SizedBox(width: theme.padding * 0.7),
             Expanded(
-              child: Text(label, style: TextStyle(fontSize: theme.activityFontSize, color: textColor)),
+              child: Text(
+                label,
+                style: TextStyle(
+                  fontSize: theme.activityFontSize,
+                  color: textColor,
+                ),
+              ),
             ),
-            Icon(Icons.chevron_right, size: theme.iconSize, color: theme.subtitleColor),
+            Icon(
+              Icons.chevron_right,
+              size: theme.iconSize,
+              color: theme.subtitleColor,
+            ),
           ],
         ),
       ),

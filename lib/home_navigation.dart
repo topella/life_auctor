@@ -10,7 +10,7 @@ import 'package:life_auctor/screens/analytics_screen.dart';
 import 'package:life_auctor/screens/history_screen.dart';
 import 'package:life_auctor/screens/shopping_list/shopping_list_screen.dart';
 import 'package:life_auctor/screens/community_screen.dart';
-import 'package:life_auctor/widgets/nav_bar.dart/bottom_bar.dart';
+import 'package:life_auctor/widgets/nav_bar/bottom_bar.dart';
 import 'package:life_auctor/widgets/connectivity_banner.dart';
 import 'package:life_auctor/utils/app_screen.dart';
 

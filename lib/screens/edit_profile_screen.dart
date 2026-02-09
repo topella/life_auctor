@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:life_auctor/utils/app_constants.dart';
 import 'package:provider/provider.dart';
 import 'package:life_auctor/providers/auth_provider.dart';
-import 'package:life_auctor/widgets/nav_bar.dart/app_bar.dart';
+import 'package:life_auctor/widgets/nav_bar/app_bar.dart';
 import 'package:life_auctor/widgets/form/form_label.dart';
 import 'package:life_auctor/widgets/form/profile_text_field.dart';
 import 'package:life_auctor/widgets/profile/profile_avatar.dart';

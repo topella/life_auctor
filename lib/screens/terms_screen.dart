@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:life_auctor/widgets/nav_bar.dart/app_bar.dart';
+import 'package:life_auctor/widgets/nav_bar/app_bar.dart';
 
 class TermsScreen extends StatelessWidget {
   final VoidCallback? onBack;
